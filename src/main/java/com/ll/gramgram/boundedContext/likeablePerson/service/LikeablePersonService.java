@@ -25,9 +25,14 @@ public class LikeablePersonService {
         if (member.hasConnectedInstaMember() == false) {
             return RsData.of("F-2", "먼저 본인의 인스타그램 아이디를 입력해야 합니다.");
         }
-
         if (member.getInstaMember().getUsername().equals(username)) {
             return RsData.of("F-1", "본인을 호감상대로 등록할 수 없습니다.");
+        }
+
+        //중복된 대상에 대해서 좋아요를 할 수 없습니다.
+        Optional<LikeablePerson> existingLikeablePerson = likeablePersonRepository.findByToInstaMemberUsername(username);
+        if (existingLikeablePerson.isPresent()) {
+            return RsData.of("F-3", "이미 호감상대로 등록된 인스타유저입니다.");
         }
 
         InstaMember fromInstaMember = member.getInstaMember();
@@ -53,12 +58,12 @@ public class LikeablePersonService {
         return RsData.of("S-1", "입력하신 인스타유저(%s)를 호감상대로 등록되었습니다.".formatted(username), likeablePerson);
     }
 
-    public List<LikeablePerson> findByFromInstaMemberId(Long fromInstaMemberId) {
-        return likeablePersonRepository.findByFromInstaMemberId(fromInstaMemberId);
-    }
-
     public Optional<LikeablePerson> findById(Long id) {
         return likeablePersonRepository.findById(id);
+    }
+
+    public Optional<LikeablePerson> isExists(String username) {
+        return likeablePersonRepository.findByToInstaMemberUsername(username);
     }
 
     @Transactional
@@ -82,4 +87,5 @@ public class LikeablePersonService {
 
         return RsData.of("S-1", "삭제가능합니다.");
     }
+
 }
