@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,10 +30,18 @@ public class LikeablePersonService {
             return RsData.of("F-1", "본인을 호감상대로 등록할 수 없습니다.");
         }
 
-        //중복된 대상에 대해서 좋아요를 할 수 없습니다.
+        //1번코드 중복된 대상에 대해서 좋아요를 할 수 없습니다.
         Optional<LikeablePerson> existingLikeablePerson = likeablePersonRepository.findByToInstaMemberUsername(username);
         if (existingLikeablePerson.isPresent()) {
-            return RsData.of("F-3", "이미 호감상대로 등록된 인스타유저입니다.");
+            LikeablePerson likeablePerson = existingLikeablePerson.get();
+            if (likeablePerson.getAttractiveTypeCode() == attractiveTypeCode){
+                return RsData.of("F-3", "이미 호감을 표시한 상대입니다.");
+            }else { //만약 타입코드가 다르면 호감유형을 업데이트 할 수 있게한다.
+                likeablePerson.setAttractiveTypeCode(attractiveTypeCode);
+                likeablePerson.setModifyDate(LocalDateTime.now());
+                likeablePersonRepository.save(likeablePerson);
+                return RsData.of("S-1", "호감이 유형이 업데이트 되었습니다.", likeablePerson);
+            }
         }
 
         InstaMember fromInstaMember = member.getInstaMember();
@@ -60,10 +69,6 @@ public class LikeablePersonService {
 
     public Optional<LikeablePerson> findById(Long id) {
         return likeablePersonRepository.findById(id);
-    }
-
-    public Optional<LikeablePerson> isExists(String username) {
-        return likeablePersonRepository.findByToInstaMemberUsername(username);
     }
 
     @Transactional
