@@ -11,5 +11,7 @@ import java.util.Optional;
 public interface LikeablePersonRepository extends JpaRepository<LikeablePerson, Long> {
     List<LikeablePerson> findByFromInstaMemberId(Long fromInstaMemberId);
 
-    Optional<LikeablePerson> findByToInstaMemberUsername(String username);
+    Optional<LikeablePerson> findByFromInstaMemberUsernameAndToInstaMemberUsername(String membername, String username);
+
+    List<LikeablePerson> countByFromInstaMemberId(Long id);
 }
