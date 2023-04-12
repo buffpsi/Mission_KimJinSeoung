@@ -30,9 +30,11 @@ public class LikeablePersonService {
             return RsData.of("F-1", "본인을 호감상대로 등록할 수 없습니다.");
         }
 
+        Long fromInstaMemeberId = member.getInstaMember().getId(); //누가 좋아하니?
+        Long toInstaMemeberId = instaMemberService.findByUsernameOrCreate(username).getData().getId(); //누구를 좋아하니??
         //1번필수 미션 중복된 대상에 대해서 좋아요를 할 수 없습니다.
         Optional<LikeablePerson> foundLikeablePerson =
-                likeablePersonRepository.findByFromInstaMemberUsernameAndToInstaMemberUsername(member.getInstaMember().getUsername(), username);
+                likeablePersonRepository.findByFromInstaMemberIdAndToInstaMemberId(fromInstaMemeberId, toInstaMemeberId);
 
         if (foundLikeablePerson.isPresent()) {
             LikeablePerson likeablePerson = foundLikeablePerson.get();
@@ -45,8 +47,7 @@ public class LikeablePersonService {
         }
         //2번 필수미션 member.getInstaMember().getId()(= 좋아요를 누른 인스타 계정주)가 likeablePerson의FromInstaMember에 id가 몇개있니?
         //11개 이상이면 추가 하지 못하게 하자
-        List<LikeablePerson> countedLikeablePersons = likeablePersonRepository.countByFromInstaMemberId(member.getInstaMember().getId());
-        if (countedLikeablePersons.size() >= 11) {
+        if (member.getInstaMember().getFromLikeablePeople().size()  >= 11) {
             return RsData.of("F-4", "좋아하는 호감 상대는 최대 11명까지 등록 가능합니다.");
         }
 
