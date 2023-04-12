@@ -37,9 +37,7 @@ public class LikeablePersonService {
             if (likeablePerson.getAttractiveTypeCode() == attractiveTypeCode){
                 return RsData.of("F-3", "이미 호감을 표시한 상대입니다.");
             }else { //만약 타입코드가 다르면 호감유형을 업데이트 할 수 있게한다.
-                likeablePerson.setAttractiveTypeCode(attractiveTypeCode);
-                likeablePerson.setModifyDate(LocalDateTime.now());
-                likeablePersonRepository.save(likeablePerson);
+                likeablePerson.changeAttractive(attractiveTypeCode);
                 return RsData.of("S-1", "호감이 유형이 업데이트 되었습니다.", likeablePerson);
             }
         }
