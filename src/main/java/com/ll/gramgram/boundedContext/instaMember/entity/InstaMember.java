@@ -2,6 +2,7 @@ package com.ll.gramgram.boundedContext.instaMember.entity;
 
 import com.ll.gramgram.boundedContext.likeablePerson.entity.LikeablePerson;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
