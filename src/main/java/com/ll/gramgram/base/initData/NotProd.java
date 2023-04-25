@@ -27,21 +27,22 @@ public class NotProd {
 
             Member memberUser5ByKakao = memberService.whenSocialLogin("KAKAO", "KAKAO__2741065164").getData();
             Member memberUser6ByGoogle = memberService.whenSocialLogin("GOOGLE", "GOOGLE__108807467778601732233").getData();
+            Member memberUser7ByNaver = memberService.whenSocialLogin("NAVER", "NAVER__Stwu9hvf1kOSnCSigg_Xudq0xAkzKt2Zky_pJWb2b1k").getData();
 
             instaMemberService.connect(memberUser2, "insta_user2", "M");
             instaMemberService.connect(memberUser3, "insta_user3", "W");
             instaMemberService.connect(memberUser4, "insta_user4", "M");
-
-            likeablePersonService.like(memberUser3, "insta_user4", 1);
-            likeablePersonService.like(memberUser3, "insta_user109", 2);
-            likeablePersonService.like(memberUser3, "insta_user108", 2);
-            likeablePersonService.like(memberUser3, "insta_user107", 2);
-            likeablePersonService.like(memberUser3, "insta_user106", 2);
-            likeablePersonService.like(memberUser3, "insta_user105", 2);
-            likeablePersonService.like(memberUser3, "insta_user104", 2);
-            likeablePersonService.like(memberUser3, "insta_user103",  2);
-            likeablePersonService.like(memberUser3, "insta_user102", 2);
-            likeablePersonService.like(memberUser3, "insta_user101", 2);
+//
+//            likeablePersonService.like(memberUser3, "insta_user4", 1);
+//            likeablePersonService.like(memberUser3, "insta_user109", 2);
+//            likeablePersonService.like(memberUser3, "insta_user108", 2);
+//            likeablePersonService.like(memberUser3, "insta_user107", 2);
+//            likeablePersonService.like(memberUser3, "insta_user106", 2);
+//            likeablePersonService.like(memberUser3, "insta_user105", 2);
+//            likeablePersonService.like(memberUser3, "insta_user104", 2);
+//            likeablePersonService.like(memberUser3, "insta_user103",  2);
+//            likeablePersonService.like(memberUser3, "insta_user102", 2);
+//            likeablePersonService.like(memberUser3, "insta_user101", 2);
 
         };
     }
