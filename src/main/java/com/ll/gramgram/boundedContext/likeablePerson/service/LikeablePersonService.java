@@ -10,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,7 +45,7 @@ public class LikeablePersonService {
         }
         //2번 필수미션 member.getInstaMember().getId()(= 좋아요를 누른 인스타 계정주)가 likeablePerson의FromInstaMember에 id가 몇개있니?
         //11개 이상이면 추가 하지 못하게 하자
-        if (member.getInstaMember().getFromLikeablePeople().size()  >= 11) {
+        if (member.getInstaMember().getFromLikeablePeople().size() >= 11) {
             return RsData.of("F-4", "좋아하는 호감 상대는 최대 11명까지 등록 가능합니다.");
         }
 
@@ -80,6 +78,10 @@ public class LikeablePersonService {
 
     @Transactional
     public RsData delete(LikeablePerson likeablePerson) {
+        // 너가 생성한 좋아요가 사라졌어.
+        likeablePerson.getFromInstaMember().removeFromLikeablePerson(likeablePerson);
+        // 너가 받은 좋아요가 사라졌어.
+        likeablePerson.getToInstaMember().removeToLikeablePerson(likeablePerson);
         likeablePersonRepository.delete(likeablePerson);
 
         String likeCanceledUsername = likeablePerson.getToInstaMember().getUsername();
