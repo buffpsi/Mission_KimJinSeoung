@@ -8,7 +8,6 @@ import com.ll.gramgram.boundedContext.likeablePerson.entity.LikeablePerson;
 import com.ll.gramgram.boundedContext.likeablePerson.repository.LikeablePersonRepository;
 import com.ll.gramgram.boundedContext.member.entity.Member;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -145,7 +144,6 @@ public class LikeablePersonService {
         String oldAttractiveTypeDisplayName = fromLikeablePerson.getAttractiveTypeDisplayName();
 
         fromLikeablePerson.setAttractiveTypeCode(attractiveTypeCode);
-        likeablePersonRepository.save(fromLikeablePerson);
 
         String newAttractiveTypeDisplayName = fromLikeablePerson.getAttractiveTypeDisplayName();
 
@@ -156,10 +154,19 @@ public class LikeablePersonService {
         return likeablePersonRepository.findByFromInstaMember_usernameAndToInstaMember_username(fromInstaMemberUsername, toInstaMemberUsername);
     }
 
-    //여기있는 코드때문이다.
-//    public RsData<LikeablePerson> modifyLike(Member actor, Long id, int attractiveTypeCode) {
-//        return null;
-//    }
+    @Transactional
+    public RsData<LikeablePerson> modifyLike(Member actor, Long id, int attractiveTypeCode) {
+        LikeablePerson likeablePerson = findById(id).orElseThrow();
+        RsData canModifyRsData = canModifyLike(actor, likeablePerson);
+
+        if (canModifyRsData.isFail()) {
+            return canModifyRsData;
+        }
+
+        likeablePerson.setAttractiveTypeCode(attractiveTypeCode);
+
+        return RsData.of("S-1", "호감사유를 수정하였습니다.");
+    }
 
     public RsData canModifyLike(Member actor, LikeablePerson likeablePerson) {
         if (!actor.hasConnectedInstaMember()) {
