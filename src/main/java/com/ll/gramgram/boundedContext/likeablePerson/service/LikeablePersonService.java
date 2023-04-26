@@ -156,9 +156,10 @@ public class LikeablePersonService {
         return likeablePersonRepository.findByFromInstaMember_usernameAndToInstaMember_username(fromInstaMemberUsername, toInstaMemberUsername);
     }
 
-    public RsData<LikeablePerson> modifyLike(Member actor, Long id, int attractiveTypeCode) {
-        return null;
-    }
+    //여기있는 코드때문이다.
+//    public RsData<LikeablePerson> modifyLike(Member actor, Long id, int attractiveTypeCode) {
+//        return null;
+//    }
 
     public RsData canModifyLike(Member actor, LikeablePerson likeablePerson) {
         if (!actor.hasConnectedInstaMember()) {
