@@ -1,4 +1,4 @@
-<html layout:decorate="~{usr/layout/layout.html}" xmlns:layout="">
+<html layout:decorate="~{usr/layout/layout.html}" xmlns:layout="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>로그인</title>
@@ -6,7 +6,7 @@
 
 <body>
 
-<main layout:fragment="main" className="flex-grow flex items-center justify-center">
+<main layout:fragment="main" class="flex-grow flex items-center justify-center">
     <script>
         function LoginForm__submit(form) {
             // username 이(가) 올바른지 체크
@@ -45,51 +45,51 @@
         }
     </script>
 
-    <div className="max-w-2xl w-full px-4">
-        <h1 className="mb-4">
-            <i className="fa-solid fa-arrow-right-to-bracket"></i>
+    <div class="max-w-2xl w-full px-4">
+        <h1 class="mb-4">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i>
             시작하기
         </h1>
 
-        <form th:action method="POST" className="flex flex-col gap-6" onSubmit="LoginForm__submit(this); return false;">
-            <th:block th:if="${param.admin}">
-                <div className="form-control">
-                    <label className="label">
-                        <span className="label-text">아이디</span>
+        <form th:action method="POST" class="flex flex-col gap-6" onsubmit="LoginForm__submit(this); return false;">
+            <th:block th:if="${@rq.refererAdminPage}">
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">아이디</span>
                     </label>
-                    <input type="text" name="username" placeholder="아이디" className="input input-bordered" autoFocus/>
+                    <input type="text" name="username" placeholder="아이디" class="input input-bordered" autofocus/>
                 </div>
 
-                <div className="form-control">
-                    <label className="label">
-                        <span className="label-text">비빌번호</span>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">비빌번호</span>
                     </label>
-                    <input type="password" name="password" placeholder="비빌번호" className="input input-bordered"/>
+                    <input type="password" name="password" placeholder="비빌번호" class="input input-bordered"/>
                 </div>
 
-                <button id="btn-login-1" className="btn btn-block btn-primary gap-1">
-                    <i className="fa-solid fa-arrow-right-to-bracket"></i>
+                <button id="btn-login-1" class="btn btn-block btn-primary gap-1">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
                     <span>로그인</span>
                 </button>
             </th:block>
 
-            <a href="/oauth2/authorization/kakao" className="btn btn-block btn-outline gap-1">
-                <i className="fa-solid fa-comment text-[color:#ffe812]"></i>
+            <a href="/oauth2/authorization/kakao" class="btn btn-block btn-outline gap-1">
+                <i class="fa-solid fa-comment text-[color:#ffe812]"></i>
                 <span>카카오 아이디로 시작하기</span>
             </a>
 
-            <a href="/oauth2/authorization/naver" className="btn btn-block btn-outline gap-1">
-                <i className="fa-solid fa-n text-[color:#2DB400]"></i>
+            <a href="/oauth2/authorization/naver" class="btn btn-block btn-outline gap-1">
+                <i class="fa-solid fa-n text-[color:#2DB400]"></i>
                 <span>네이버 아이디로 시작하기</span>
             </a>
 
-            <a href="/oauth2/authorization/google" className="btn btn-block btn-outline gap-1">
-                <i className="fa-brands fa-google text-[color:#ff4000]"></i>
+            <a href="/oauth2/authorization/google" class="btn btn-block btn-outline gap-1">
+                <i class="fa-brands fa-google text-[color:#ff4000]"></i>
                 <span>구글 아이디로 시작하기</span>
             </a>
 
-            <div className="flex flex-wrap justify-center">
-                <a href="/usr/home/about" className="btn btn-link">그램그램이란?</a>
+            <div class="flex flex-wrap justify-center">
+                <a href="/usr/home/about" class="btn btn-link">그램그램이란?</a>
             </div>
         </form>
     </div>
