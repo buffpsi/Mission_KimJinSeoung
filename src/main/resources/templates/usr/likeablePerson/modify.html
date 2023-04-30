@@ -31,14 +31,31 @@
               onSubmit="ModifyLikeForm__submit(this); return false;">
             <div className="form-control">
                 <label className="label">
-                    <span className="label-text">당신의 인스타 아이디</span>
+                    <span className="label-text">
+                        <i className="fa-regular fa-clock"></i>
+                        호감표시
+                    </span>
+                </label>
+                <span className="badge badge-primary"
+                      th:text="${#temporals.format(likeablePerson.createDate, 'yy.MM.dd HH:mm')}"></span>
+            </div>
+
+            <div className="form-control">
+                <label className="label">
+                    <span className="label-text">
+                        <i className="fa-brands fa-instagram"></i>
+                        당신의 인스타 아이디
+                    </span>
                 </label>
                 <div className="badge badge-primary" th:text="${likeablePerson.fromInstaMember.username}"></div>
             </div>
 
             <div className="form-control">
                 <label className="label">
-                    <span className="label-text">상대방 인스타 아이디</span>
+                    <span className="label-text">
+                        <i className="fa-brands fa-instagram"></i>
+                        상대방 인스타 아이디
+                    </span>
                 </label>
                 <div className="badge badge-primary" th:text="${likeablePerson.toInstaMember.username}"></div>
                 <a th:href="@{|https://instagram.com/${likeablePerson.toInstaMember.username}|}" target="_blank"
@@ -50,14 +67,20 @@
 
             <div className="form-control">
                 <label className="label">
-                    <span className="label-text">기존 호감사유</span>
+                    <span className="label-text">
+                        <i className="fa-solid fa-check"></i>
+                        기존 호감사유
+                    </span>
                 </label>
                 <div className="badge badge-primary" th:text="${likeablePerson.attractiveTypeDisplayName}"></div>
             </div>
 
             <div className="form-control">
                 <label className="label">
-                    <span className="label-text">호감사유</span>
+                    <span className="label-text">
+                        <i className="fa-solid fa-check"></i>
+                        새 호감사유
+                    </span>
                 </label>
 
                 <!-- 라벨을 클릭하면 라벨의 하위요소인 버튼(체크,라디오,일반 등)이 클릭되는 효과) -->
@@ -104,10 +127,25 @@
 
         <div className="text-center mt-4">
             <a th:if="${@rq.member.hasConnectedInstaMember}" href="/usr/likeablePerson/like"
-               className="btn btn-link">호감표시</a>
+               className="btn btn-link">
+                <span>
+                    <i className="fa-solid fa-heart-circle-plus mr-1"></i>
+                    호감표시&nbsp;
+                </span>
+            </a>
             <a th:if="${@rq.member.hasConnectedInstaMember}" href="/usr/likeablePerson/list"
-               className="btn btn-link">호감목록</a>
-            <a th:if="${@rq.member.hasConnectedInstaMember}" href="/usr/member/me" className="btn btn-link">내 정보</a>
+               className="btn btn-link">
+                <span>
+                    <i className="fa-solid fa-list-ol mr-1"></i>
+                    호감목록
+                </span>
+            </a>
+            <a th:if="${@rq.member.hasConnectedInstaMember}" href="/usr/member/me" className="btn btn-link">
+                <span>
+                    <i className="fa-solid fa-user mr-1"></i>
+                    내 정보
+                </span>
+            </a>
         </div>
     </div>
 </main>
