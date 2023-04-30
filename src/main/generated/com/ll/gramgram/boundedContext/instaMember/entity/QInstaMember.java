@@ -20,29 +20,56 @@ public class QInstaMember extends EntityPathBase<InstaMember> {
 
     public static final QInstaMember instaMember = new QInstaMember("instaMember");
 
-    public final com.ll.gramgram.base.baseEntity.QBaseEntity _super = new com.ll.gramgram.base.baseEntity.QBaseEntity(this);
+    public final QInstaMemberBase _super = new QInstaMemberBase(this);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createDate = _super.createDate;
 
     public final ListPath<com.ll.gramgram.boundedContext.likeablePerson.entity.LikeablePerson, com.ll.gramgram.boundedContext.likeablePerson.entity.QLikeablePerson> fromLikeablePeople = this.<com.ll.gramgram.boundedContext.likeablePerson.entity.LikeablePerson, com.ll.gramgram.boundedContext.likeablePerson.entity.QLikeablePerson>createList("fromLikeablePeople", com.ll.gramgram.boundedContext.likeablePerson.entity.LikeablePerson.class, com.ll.gramgram.boundedContext.likeablePerson.entity.QLikeablePerson.class, PathInits.DIRECT2);
 
-    public final StringPath gender = createString("gender");
+    //inherited
+    public final StringPath gender = _super.gender;
 
     //inherited
     public final NumberPath<Long> id = _super.id;
 
-    public final NumberPath<Long> likesCountByGenderManAndAttractiveTypeCode1 = createNumber("likesCountByGenderManAndAttractiveTypeCode1", Long.class);
+    public final ListPath<InstaMemberSnapshot, QInstaMemberSnapshot> instaMemberSnapshots = this.<InstaMemberSnapshot, QInstaMemberSnapshot>createList("instaMemberSnapshots", InstaMemberSnapshot.class, QInstaMemberSnapshot.class, PathInits.DIRECT2);
 
-    public final NumberPath<Long> likesCountByGenderManAndAttractiveTypeCode2 = createNumber("likesCountByGenderManAndAttractiveTypeCode2", Long.class);
+    //inherited
+    public final NumberPath<Long> likes = _super.likes;
 
-    public final NumberPath<Long> likesCountByGenderManAndAttractiveTypeCode3 = createNumber("likesCountByGenderManAndAttractiveTypeCode3", Long.class);
+    //inherited
+    public final NumberPath<Long> likesCountByAttractionTypeCode1 = _super.likesCountByAttractionTypeCode1;
 
-    public final NumberPath<Long> likesCountByGenderWomanAndAttractiveTypeCode1 = createNumber("likesCountByGenderWomanAndAttractiveTypeCode1", Long.class);
+    //inherited
+    public final NumberPath<Long> likesCountByAttractionTypeCode2 = _super.likesCountByAttractionTypeCode2;
 
-    public final NumberPath<Long> likesCountByGenderWomanAndAttractiveTypeCode2 = createNumber("likesCountByGenderWomanAndAttractiveTypeCode2", Long.class);
+    //inherited
+    public final NumberPath<Long> likesCountByAttractionTypeCode3 = _super.likesCountByAttractionTypeCode3;
 
-    public final NumberPath<Long> likesCountByGenderWomanAndAttractiveTypeCode3 = createNumber("likesCountByGenderWomanAndAttractiveTypeCode3", Long.class);
+    //inherited
+    public final NumberPath<Long> likesCountByGenderMan = _super.likesCountByGenderMan;
+
+    //inherited
+    public final NumberPath<Long> likesCountByGenderManAndAttractiveTypeCode1 = _super.likesCountByGenderManAndAttractiveTypeCode1;
+
+    //inherited
+    public final NumberPath<Long> likesCountByGenderManAndAttractiveTypeCode2 = _super.likesCountByGenderManAndAttractiveTypeCode2;
+
+    //inherited
+    public final NumberPath<Long> likesCountByGenderManAndAttractiveTypeCode3 = _super.likesCountByGenderManAndAttractiveTypeCode3;
+
+    //inherited
+    public final NumberPath<Long> likesCountByGenderWoman = _super.likesCountByGenderWoman;
+
+    //inherited
+    public final NumberPath<Long> likesCountByGenderWomanAndAttractiveTypeCode1 = _super.likesCountByGenderWomanAndAttractiveTypeCode1;
+
+    //inherited
+    public final NumberPath<Long> likesCountByGenderWomanAndAttractiveTypeCode2 = _super.likesCountByGenderWomanAndAttractiveTypeCode2;
+
+    //inherited
+    public final NumberPath<Long> likesCountByGenderWomanAndAttractiveTypeCode3 = _super.likesCountByGenderWomanAndAttractiveTypeCode3;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifyDate = _super.modifyDate;
