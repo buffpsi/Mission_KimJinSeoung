@@ -5,12 +5,12 @@ import com.ll.gramgram.boundedContext.likeablePerson.entity.LikeablePerson;
 import com.ll.gramgram.boundedContext.likeablePerson.service.LikeablePersonService;
 import com.ll.gramgram.boundedContext.member.entity.Member;
 import com.ll.gramgram.boundedContext.member.service.MemberService;
+import com.ll.gramgram.standard.util.Ut;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
-import com.ll.gramgram.standard.util.Ut;
 
 import java.time.LocalDateTime;
 
@@ -37,6 +37,7 @@ public class NotProd {
                 Member memberUser6ByKakao = memberService.whenSocialLogin("KAKAO", "KAKAO__2731659195").getData();
                 Member memberUser7ByGoogle = memberService.whenSocialLogin("GOOGLE", "GOOGLE__103240209825008011930").getData();
                 Member memberUser7ByNaver = memberService.whenSocialLogin("NAVER", "NAVER__ibvGetSExxTuzr2Zy_SBG7KNLQXhoW1aynxoiwDSP6c").getData();
+                Member memberUser9ByFacebook = memberService.whenSocialLogin("FACEBOOK", "FACEBOOK__115676794845814").getData();
 
                 instaMemberService.connect(memberUser2, "insta_user2", "M");
                 instaMemberService.connect(memberUser3, "insta_user3", "W");
