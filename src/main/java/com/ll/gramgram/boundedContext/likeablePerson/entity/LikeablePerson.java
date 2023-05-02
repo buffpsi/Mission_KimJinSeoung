@@ -45,7 +45,7 @@ public class LikeablePerson extends BaseEntity {
     public String getModifyUnlockDateRemainStrHuman() {
         long remainSeconds = ZonedDateTime.now().until(modifyUnlockDate.atZone(ZoneId.systemDefault()), ChronoUnit.SECONDS);
         long remainMinutes = (long) Math.ceil((double) remainSeconds / 60);
-        if(remainMinutes < 60) return "조금만 기다려 주세요. 1분 안으로 완료 됩니다.";
+        if (remainMinutes < 60) return "조금만 기다려 주세요. 1분 안으로 완료 됩니다.";
         else return remainMinutes / 60 + "시간 " + remainMinutes % 60 + "분" + "뒤에 가능합니다!";
     }
 
