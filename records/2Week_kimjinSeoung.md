@@ -42,8 +42,8 @@ WHERE from_insta_member_id = 1;
 
 ```SQL
 UPDATE likeable_person
-SET modify_date = NOW(),
-attractive_type_code = 2
+SET modify_date          = NOW(),
+    attractive_type_code = 2
 WHERE id = 5;
 ```
 
@@ -64,7 +64,8 @@ WHERE id = 5;
 SQL
 
 ```SQL
-# 최초로 네이버 로그인을 통해서 가입이 될 때 실행되어야 할 SQL
+#
+최초로 네이버 로그인을 통해서 가입이 될 때 실행되어야 할 SQL
 # 네이버 앱에서의 해당 회원번호를 2731659195 라고 가정하면
 INSERT INTO `member`
 SET create_date = NOW(),

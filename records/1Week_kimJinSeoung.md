@@ -48,7 +48,8 @@ WHERE id = 5;
 SQL
 
 ```SQL
-# 최초로 구글 로그인을 통해서 가입이 될 때 실행되어야 할 SQL
+#
+최초로 구글 로그인을 통해서 가입이 될 때 실행되어야 할 SQL
 # 구글 앱에서의 해당 회원번호를 2731659195 라고 가정
 INSERT INTO `member`
 SET create_date = NOW(),

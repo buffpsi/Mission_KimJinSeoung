@@ -6,6 +6,7 @@ import com.ll.gramgram.boundedContext.notification.repository.NotificationReposi
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -15,5 +16,12 @@ public class NotificationService {
 
     public List<Notification> findByToInstaMember(InstaMember toInstaMember) {
         return notificationRepository.findByToInstaMember(toInstaMember);
+    }
+
+    public void readNotification(Notification notification) {
+        if (notification.getReadDate() == null) {
+            notification.setReadDate(LocalDateTime.now());
+            notificationRepository.save(notification);
+        }
     }
 }

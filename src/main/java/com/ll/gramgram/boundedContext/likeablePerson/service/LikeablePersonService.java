@@ -10,6 +10,8 @@ import com.ll.gramgram.boundedContext.instaMember.service.InstaMemberService;
 import com.ll.gramgram.boundedContext.likeablePerson.entity.LikeablePerson;
 import com.ll.gramgram.boundedContext.likeablePerson.repository.LikeablePersonRepository;
 import com.ll.gramgram.boundedContext.member.entity.Member;
+import com.ll.gramgram.boundedContext.notification.entity.Notification;
+import com.ll.gramgram.boundedContext.notification.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class LikeablePersonService {
     private final LikeablePersonRepository likeablePersonRepository;
+    private final NotificationRepository notificationRepository;
     private final InstaMemberService instaMemberService;
     private final ApplicationEventPublisher publisher;
 
@@ -50,6 +53,15 @@ public class LikeablePersonService {
                 .build();
 
         likeablePersonRepository.save(likeablePerson); // 저장
+
+        Notification notification = Notification.builder()
+                .toInstaMember(toInstaMember)
+                .fromInstaMember(fromInstaMember)
+                .typeCode("Like")
+                .oldAttractiveTypeCode(attractiveTypeCode)
+                .oldGender(fromInstaMember.getGender())
+                .build();
+        notificationRepository.save(notification);
 
         // 너가 좋아하는 호감표시 생겼어.
         fromInstaMember.addFromLikeablePerson(likeablePerson);
@@ -199,11 +211,24 @@ public class LikeablePersonService {
         int oldAttractiveTypeCode = likeablePerson.getAttractiveTypeCode();
         RsData rsData = likeablePerson.updateAttractionTypeCode(attractiveTypeCode);
 
+        Notification notification = Notification.builder()
+                .toInstaMember(likeablePerson.getToInstaMember())
+                .fromInstaMember(likeablePerson.getFromInstaMember())
+                .typeCode("ModifyAttractiveType")
+                .oldAttractiveTypeCode(oldAttractiveTypeCode)
+                .oldGender(likeablePerson.getFromInstaMember().getGender())
+                .newAttractiveTypeCode(attractiveTypeCode)
+                .newGender(likeablePerson.getFromInstaMember().getGender())
+                .build();
+        notificationRepository.save(notification);
+
         if (rsData.isSuccess()) {
             publisher.publishEvent(new EventAfterModifyAttractiveType(this, likeablePerson, oldAttractiveTypeCode, attractiveTypeCode));
         }
+
     }
 
+    //modify 체크 권한 로직
     public RsData canModifyLike(Member actor, LikeablePerson likeablePerson) {
         if (!actor.hasConnectedInstaMember()) {
             return RsData.of("F-1", "먼저 본인의 인스타그램 아이디를 입력해주세요.");
