@@ -35,6 +35,37 @@ public class Notification extends BaseEntity {
     private String newGender; // 해당사항 없으면 null
     private int newAttractiveTypeCode; // 해당사항 없으면 0
 
+    public String getOldAttractiveTypeCode() {
+        return getAttractiveTypeCode(oldAttractiveTypeCode);
+    }
+
+    public String getNewAttractiveTypeCode() {
+        return getAttractiveTypeCode(newAttractiveTypeCode);
+    }
+
+    private String getAttractiveTypeCode(int code) {
+        return switch (code) {
+            case 1 -> "외모";
+            case 2 -> "성격";
+            default -> "능력";
+        };
+    }
+
+    public String getOldGender() {
+        return getGender(oldGender);
+    }
+
+    public String getNewGender() {
+        return getGender(newGender);
+    }
+
+    private String getGender(String gender) {
+        return switch (gender) {
+            case "M" -> "남자";
+            default -> "여자";
+        };
+    }
+
     public String getTimeAgo() {
         Instant now = Instant.now();
         Duration duration;

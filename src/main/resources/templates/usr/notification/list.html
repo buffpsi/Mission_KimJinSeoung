@@ -22,9 +22,9 @@
                         </div>
                         <div>
                             <span class="badge badge-primary" th:if="${notification.typeCode == 'Like'}"
-                                  th:text="${#strings.substring(notification.createDate,0,16).replace('T', ' ')}"></span>
+                                  th:text="${#temporals.format(notification.createDate, 'yy.MM.dd HH:mm')}"></span>
                             <span class="badge badge-primary" th:if="${notification.typeCode == 'ModifyAttractiveType'}"
-                                  th:text="${#strings.substring(notification.modifyDate,0,16)}"></span>
+                                  th:text="${#temporals.format(notification.modifyDate, 'yy.MM.dd HH:mm')}"></span>
                             <span class="badge badge-primary" th:text="${notification.timeAgo}"></span>
                             <i class="fa-solid fa-fire text-red-500"></i>
                         </div>
