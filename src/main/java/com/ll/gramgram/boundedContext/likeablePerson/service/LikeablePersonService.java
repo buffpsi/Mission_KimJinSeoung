@@ -110,8 +110,8 @@ public class LikeablePersonService {
             return RsData.of("F-2", "권한이 없습니다.");
 
         //쿨타임 체크로직 추가
-        if (likeablePerson.getModifyUnlockDate().isAfter(LocalDateTime.now())) {
-            return RsData.of("F-2", "쿨 타임 이후에 다시 시도해주세요. ");
+        if (!likeablePerson.isModifyUnlocked()){
+            return RsData.of("F-3", "쿨 타임 이후에 다시 시도해주세요. ");
         }
 
         return RsData.of("S-1", "삭제가능합니다.");
@@ -240,9 +240,10 @@ public class LikeablePersonService {
             return RsData.of("F-2", "해당 호감표시를 취소할 권한이 없습니다.");
         }
         //쿨타임 체크로직 추가
-        if (likeablePerson.getModifyUnlockDate().isAfter(LocalDateTime.now())) {
-            return RsData.of("F-2", "쿨 타임 이후에 다시 시도해주세요. ");
+        if (!likeablePerson.isModifyUnlocked()){
+            return RsData.of("F-3", "쿨 타임 이후에 다시 시도해주세요. ");
         }
+
         return RsData.of("S-1", "호감표시취소가 가능합니다.");
     }
 
