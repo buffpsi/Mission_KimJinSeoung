@@ -2,18 +2,15 @@ package com.ll.gramgram.boundedContext.notification.entity;
 
 import com.ll.gramgram.base.baseEntity.BaseEntity;
 import com.ll.gramgram.boundedContext.instaMember.entity.InstaMember;
+import com.ll.gramgram.standard.util.Ut;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 @Entity
 @Getter
@@ -21,7 +18,6 @@ import java.time.ZoneId;
 @SuperBuilder
 @ToString(callSuper = true)
 public class Notification extends BaseEntity {
-    @Setter
     private LocalDateTime readDate;
     @ManyToOne
     @ToString.Exclude
@@ -35,61 +31,43 @@ public class Notification extends BaseEntity {
     private String newGender; // 해당사항 없으면 null
     private int newAttractiveTypeCode; // 해당사항 없으면 0
 
-    public String getOldAttractiveTypeCode() {
-        return getAttractiveTypeCode(oldAttractiveTypeCode);
+    public boolean isRead() {
+        return readDate != null;
     }
 
-    public String getNewAttractiveTypeCode() {
-        return getAttractiveTypeCode(newAttractiveTypeCode);
+    public void markAsRead() {
+        readDate = LocalDateTime.now();
     }
 
-    private String getAttractiveTypeCode(int code) {
-        return switch (code) {
+    public String getCreateDateAfterStrHuman() {
+        return Ut.time.diffFormat1Human(LocalDateTime.now(), getCreateDate());
+    }
+
+    public boolean isHot() {
+        // 만들어진지 60분이 안되었다면 hot 으로 설정
+        return getCreateDate().isAfter(LocalDateTime.now().minusMinutes(60));
+    }
+
+    public String getOldAttractiveTypeDisplayName() {
+        return switch (oldAttractiveTypeCode) {
             case 1 -> "외모";
             case 2 -> "성격";
             default -> "능력";
         };
     }
 
-    public String getOldGender() {
-        return getGender(oldGender);
-    }
-
-    public String getNewGender() {
-        return getGender(newGender);
-    }
-
-    private String getGender(String gender) {
-        return switch (gender) {
-            case "M" -> "남자";
-            default -> "여자";
+    public String getNewAttractiveTypeDisplayName() {
+        return switch (newAttractiveTypeCode) {
+            case 1 -> "외모";
+            case 2 -> "성격";
+            default -> "능력";
         };
     }
 
-    public String getTimeAgo() {
-        Instant now = Instant.now();
-        Duration duration;
-        if (this.typeCode.equals("Like")) {
-            duration = Duration.between(getCreateDate().atZone(ZoneId.systemDefault()).toInstant(), now);
-        } else if (this.typeCode.equals("ModifyAttractiveType")) {
-            duration = Duration.between(getModifyDate().atZone(ZoneId.systemDefault()).toInstant(), now);
-        } else {
-            duration = Duration.ZERO;
-        }
-        long seconds = duration.getSeconds();
-
-        if (seconds < 60) {
-            return seconds + "초 전";
-        } else if (seconds < 60 * 60) {
-            long minutes = seconds / 60;
-            return minutes + "분 전";
-        } else if (seconds < 60 * 60 * 24) {
-            long hours = seconds / (60 * 60);
-            return hours + "시간 전";
-        } else {
-            long days = seconds / (60 * 60 * 24);
-            return days + "일 전";
-        }
+    public String getNewGenderDisplayName() {
+        return switch (newGender) {
+            case "W" -> "여성";
+            default -> "남성";
+        };
     }
-
 }
