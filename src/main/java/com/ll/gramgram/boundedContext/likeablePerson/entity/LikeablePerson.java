@@ -13,6 +13,9 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Getter
@@ -40,7 +43,10 @@ public class LikeablePerson extends BaseEntity {
 
     // 초 단위에서 올림 해주세요.
     public String getModifyUnlockDateRemainStrHuman() {
-        return "2시간 16분";
+        long remainSeconds = ZonedDateTime.now().until(modifyUnlockDate.atZone(ZoneId.systemDefault()), ChronoUnit.SECONDS);
+        long remainMinutes = (long) Math.ceil((double) remainSeconds / 60);
+        if (remainMinutes < 60) return "조금만 기다려 주세요. 1분 안으로 완료 됩니다.";
+        else return remainMinutes / 60 + "시간 " + remainMinutes % 60 + "분" + "뒤에 가능합니다!";
     }
 
     public RsData updateAttractionTypeCode(int attractiveTypeCode) {
