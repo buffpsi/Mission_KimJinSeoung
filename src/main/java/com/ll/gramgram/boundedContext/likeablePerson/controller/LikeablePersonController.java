@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/usr/likeablePerson")
@@ -124,13 +123,15 @@ public class LikeablePersonController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/toList")
     public String showToList(@RequestParam(name = "gender", required = false) String gender,
-                             @RequestParam(name = "attractiveTypeCode", required = false) Integer attractiveTypeCode, Model model) {
+                             @RequestParam(name = "attractiveTypeCode", required = false) Integer attractiveTypeCode,
+                             @RequestParam(name = "sortCode", required = false) Integer sortCode,
+                             Model model) {
         InstaMember instaMember = rq.getMember().getInstaMember();
 
         if (instaMember != null) {
             List<LikeablePerson> likeablePeople = instaMember.getToLikeablePeople();
 
-            List<LikeablePerson> filteredLikeablePeople = likeablePersonService.filterByGenderAndAttractiveType(likeablePeople, gender,attractiveTypeCode);
+            List<LikeablePerson> filteredLikeablePeople = likeablePersonService.filterByGenderAndAttractiveTypeAndSort(likeablePeople, gender, attractiveTypeCode, sortCode);
             model.addAttribute("filteredLikeablePeople", filteredLikeablePeople);
         }
 

@@ -65,4 +65,5 @@
 - [x] 필수미션 2 - 내가 받은 호감리스트 (/usr/likeablePerson/toList)에서 성별 필터링 기능 구현
 - [ ] 선택미션 1 - 젠킨스를 통해서 레포지터리의 main 브랜치에 커밋 이벤트가 발생하면 자동 배포
 - [x] 선택미션 2 - 내가 받은 호감리스트 (/usr/likeablePerson/toList)에서 호감사유 필터링 기능
-- [ ] 선택미션 3 - 내가 받은 호감리스트 (/usr/likeablePerson/toList)에서 정렬 기능
+- [x] 선택미션 3 - 내가 받은 호감리스트 (/usr/likeablePerson/toList)에서 정렬 기능
+    - 현재 인기도 구현은 하지못함(마저 해야함)

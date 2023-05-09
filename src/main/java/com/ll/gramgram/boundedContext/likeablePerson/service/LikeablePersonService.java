@@ -15,6 +15,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -222,7 +223,7 @@ public class LikeablePersonService {
         return RsData.of("S-1", "호감사유변경이 가능합니다.");
     }
 
-    public List<LikeablePerson> filterByGenderAndAttractiveType(List<LikeablePerson> likeablePeople, String gender, Integer attractiveTypeCode) {
+    public List<LikeablePerson> filterByGenderAndAttractiveTypeAndSort(List<LikeablePerson> likeablePeople, String gender, Integer attractiveTypeCode, Integer sortCode) {
         Stream<LikeablePerson> stream = likeablePeople.stream();
 
         if (gender != null && !gender.isEmpty()) {
@@ -230,10 +231,38 @@ public class LikeablePersonService {
         }
 
         if (attractiveTypeCode != null) {
-
             stream = stream.filter(person -> person.getAttractiveTypeCode() == attractiveTypeCode);
         }
 
+        if (sortCode != null) {
+            Comparator<LikeablePerson> comparator;
+
+            switch (sortCode) {
+                case 2:
+                    // 날짜순으로 정렬
+                    comparator = Comparator.comparing(LikeablePerson::getCreateDate);
+                    break;
+//            case 3:
+//                // 인기가 많은 순으로 정렬
+//                break;
+//            case 4:
+//                // 인기가 적은 순으로 정렬
+//                break;
+                case 5:
+                    // 성별 순으로 정렬 (여자 먼저 나오도록) 하지만 첫번째에 성별로 필터링해서 굳이 필요가 없을 것 같긴함
+                    comparator = Comparator.comparing(LikeablePerson::getFromInstaMember, Comparator.comparing(InstaMember::getGender).reversed());
+                    break;
+                case 6:
+                    // 호감 사유순으로 정렬
+                    comparator = Comparator.comparing(LikeablePerson::getAttractiveTypeCode);
+                    break;
+                default:
+                    // 기본은 최신순으로 정렬함
+                    comparator = Comparator.comparing(LikeablePerson::getCreateDate).reversed();
+                    break;
+            }
+
+        }
         return stream.collect(Collectors.toList());
     }
 

@@ -46,6 +46,10 @@ public class NotProd {
                 Member memberUser3 = memberService.join("user3", "1234").getData();
                 Member memberUser4 = memberService.join("user4", "1234").getData();
                 Member memberUser5 = memberService.join("user5", "1234").getData();
+                Member memberUser6 = memberService.join("user6", "1234").getData();
+                Member memberUser7 = memberService.join("user7", "1234").getData();
+                Member memberUser8 = memberService.join("user8", "1234").getData();
+                Member memberUser9 = memberService.join("user9", "1234").getData();
 
                 Member memberUser6ByKakao = memberService.whenSocialLogin("KAKAO", "KAKAO__%s".formatted(kakaoDevUserOAuthId)).getData();
                 Member memberUser7ByGoogle = memberService.whenSocialLogin("GOOGLE", "GOOGLE__%s".formatted(googleDevUserOAuthId)).getData();
@@ -56,16 +60,21 @@ public class NotProd {
                 instaMemberService.connect(memberUser3, "insta_user3", "W");
                 instaMemberService.connect(memberUser4, "insta_user4", "M");
                 instaMemberService.connect(memberUser5, "insta_user5", "W");
+                instaMemberService.connect(memberUser6, "insta_user6", "W");
+                instaMemberService.connect(memberUser7, "insta_user7", "W");
+                instaMemberService.connect(memberUser8, "insta_user4", "W");
+                instaMemberService.connect(memberUser9, "insta_user5", "W");
 
                 // 원활한 테스트와 개발을 위해서 자동으로 만들어지는 호감이 삭제, 수정이 가능하도록 쿨타임해제
+                LikeablePerson likeablePersonToInstaUser2 = likeablePersonService.like(memberUser2, "insta_user4", 2).getData();
                 LikeablePerson likeablePersonToInstaUser4 = likeablePersonService.like(memberUser3, "insta_user4", 1).getData();
                 Ut.reflection.setFieldValue(likeablePersonToInstaUser4, "modifyUnlockDate", LocalDateTime.now().minusSeconds(1));
-                LikeablePerson likeablePersonToInstaUser100 = likeablePersonService.like(memberUser3, "insta_user100", 2).getData();
-                Ut.reflection.setFieldValue(likeablePersonToInstaUser100, "modifyUnlockDate", LocalDateTime.now().minusSeconds(1));
-                LikeablePerson likeablePersonToInstaUser33 = likeablePersonService.like(memberUser2, "insta_user4", 2).getData();
                 Ut.reflection.setFieldValue(likeablePersonToInstaUser4, "modifyUnlockDate", LocalDateTime.now().minusSeconds(1));
-                LikeablePerson likeablePersonToInstaUser12 = likeablePersonService.like(memberUser5, "insta_user4", 3).getData();
-                Ut.reflection.setFieldValue(likeablePersonToInstaUser100, "modifyUnlockDate", LocalDateTime.now().minusSeconds(1));
+                LikeablePerson likeablePersonToInstaUser5 = likeablePersonService.like(memberUser5, "insta_user4", 1).getData();
+                LikeablePerson likeablePersonToInstaUser6 = likeablePersonService.like(memberUser6, "insta_user4", 1).getData();
+                LikeablePerson likeablePersonToInstaUser7 = likeablePersonService.like(memberUser7, "insta_user4", 1).getData();
+                LikeablePerson likeablePersonToInstaUser8 = likeablePersonService.like(memberUser8, "insta_user4", 2).getData();
+                LikeablePerson likeablePersonToInstaUser9 = likeablePersonService.like(memberUser9, "insta_user4", 2).getData();
                 LikeablePerson likeablePersonToInstaUserAbcd = likeablePersonService.like(memberUser3, "insta_user_abcd", 2).getData();
             }
         };
