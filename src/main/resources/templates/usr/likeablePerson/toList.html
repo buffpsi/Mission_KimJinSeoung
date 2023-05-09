@@ -90,8 +90,8 @@
                 </div>
             </div>
 
-            <ul th:if="${!#lists.isEmpty(likeablePeople)}" class="flex flex-col gap-4 mt-4">
-                <li th:each="likeablePerson: ${likeablePeople}">
+            <ul th:if="${!#lists.isEmpty(filteredLikeablePeople)}" class="flex flex-col gap-4 mt-4">
+                <li th:each="likeablePerson: ${filteredLikeablePeople}">
                     <div class="card bg-base-100 shadow-xl">
                         <div class="card-body">
                             <div class="mt-4 mb-2 flex flex-col gap-2">
