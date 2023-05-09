@@ -123,13 +123,14 @@ public class LikeablePersonController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/toList")
-    public String showToList(@RequestParam(name = "gender", required = false) String gender, Model model) {
+    public String showToList(@RequestParam(name = "gender", required = false) String gender,
+                             @RequestParam(name = "attractiveTypeCode", required = false) Integer attractiveTypeCode, Model model) {
         InstaMember instaMember = rq.getMember().getInstaMember();
 
         if (instaMember != null) {
             List<LikeablePerson> likeablePeople = instaMember.getToLikeablePeople();
 
-            List<LikeablePerson> filteredLikeablePeople = likeablePersonService.filterByGender(likeablePeople, gender);
+            List<LikeablePerson> filteredLikeablePeople = likeablePersonService.filterByGenderAndAttractiveType(likeablePeople, gender,attractiveTypeCode);
             model.addAttribute("filteredLikeablePeople", filteredLikeablePeople);
         }
 

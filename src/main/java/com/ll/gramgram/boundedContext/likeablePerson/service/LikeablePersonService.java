@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -221,14 +222,19 @@ public class LikeablePersonService {
         return RsData.of("S-1", "호감사유변경이 가능합니다.");
     }
 
-    public List<LikeablePerson> filterByGender(List<LikeablePerson> likeablePeople, String gender){
-        if (gender != null){
-            return likeablePeople.stream()
-                    .filter(person -> person.getFromInstaMember().getGender().equals(gender))
-                    .collect(Collectors.toList());
-        }else {
-            return likeablePeople;
+    public List<LikeablePerson> filterByGenderAndAttractiveType(List<LikeablePerson> likeablePeople, String gender, Integer attractiveTypeCode) {
+        Stream<LikeablePerson> stream = likeablePeople.stream();
+
+        if (gender != null && !gender.isEmpty()) {
+            stream = stream.filter(person -> person.getFromInstaMember().getGender().equals(gender));
         }
+
+        if (attractiveTypeCode != null) {
+
+            stream = stream.filter(person -> person.getAttractiveTypeCode() == attractiveTypeCode);
+        }
+
+        return stream.collect(Collectors.toList());
     }
 
 }

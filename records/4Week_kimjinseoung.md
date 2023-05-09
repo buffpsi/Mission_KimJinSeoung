@@ -64,5 +64,5 @@
 - [x] 필수 미션1 - 네이버 클라우드 플랫폼을 통한 배포, 도메인, HTTPS까지 적용
 - [x] 필수미션 2 - 내가 받은 호감리스트 (/usr/likeablePerson/toList)에서 성별 필터링 기능 구현
 - [ ] 선택미션 1 - 젠킨스를 통해서 레포지터리의 main 브랜치에 커밋 이벤트가 발생하면 자동 배포
-- [ ] 선택미션 2 - 내가 받은 호감리스트 (/usr/likeablePerson/toList)에서 호감사유 필터링 기능
+- [x] 선택미션 2 - 내가 받은 호감리스트 (/usr/likeablePerson/toList)에서 호감사유 필터링 기능
 - [ ] 선택미션 3 - 내가 받은 호감리스트 (/usr/likeablePerson/toList)에서 정렬 기능
