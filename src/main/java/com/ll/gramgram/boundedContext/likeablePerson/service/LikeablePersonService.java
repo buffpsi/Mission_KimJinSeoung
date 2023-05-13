@@ -219,4 +219,12 @@ public class LikeablePersonService {
 
         return RsData.of("S-1", "호감사유변경이 가능합니다.");
     }
+
+    public List<LikeablePerson> findByToInstaMemberAndGenderAndAttractiveTypeCode(String username, String gender, int attractiveTypeCode, int sortCode) {
+        return findByToInstaMemberAndGenderAndAttractiveTypeCode(instaMemberService.findByUsername(username).get(), gender, attractiveTypeCode, sortCode);
+    }
+
+    public List<LikeablePerson> findByToInstaMemberAndGenderAndAttractiveTypeCode(InstaMember instaMember, String gender, int attractiveTypeCode, int sortCode) {
+        return likeablePersonRepository.findQslByToInstaMemberAndGenderAndAttractiveTypeCode(instaMember, gender, attractiveTypeCode, sortCode);
+    }
 }
